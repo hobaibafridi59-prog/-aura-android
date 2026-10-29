@@ -201,7 +201,7 @@ server.listen(PORT, '0.0.0.0', () => console.log('AURA is live → http://localh
 /* ---------- client (served at /) ---------- */
 const HTML = String.raw`<!doctype html>
 <html lang="en">
-<head>
+<head><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23080808'/%3E%3Cpath d='M14 43 30 13 46 43 M21 32 H39' fill='none' stroke='%23d6b15e' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M46 17 V34 Q46 40 39 40' fill='none' stroke='%23d6b15e' stroke-width='3'/%3E%3C/svg%3E">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0d0912">
@@ -429,6 +429,191 @@ button,.panel,.stage,.side,.field,.chip,.ghost,.seg button{
  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
 }
 
+
+
+/* AURA 3D PREMIUM UI */
+:root {
+  color-scheme: dark;
+  --aura-violet: #9b8cff;
+  --aura-blue: #65d8ff;
+  --aura-panel: #15182b;
+  --aura-edge: rgba(190,190,255,.19);
+}
+body {
+  background:
+    radial-gradient(ellipse at 12% 0%, rgba(101,216,255,.10), transparent 38%),
+    radial-gradient(ellipse at 90% 20%, rgba(155,140,255,.13), transparent 42%),
+    #080a14;
+}
+button, input, select, textarea {
+  transition: transform .18s ease, box-shadow .22s ease,
+              border-color .22s ease, background .22s ease;
+}
+button {
+  border: 1px solid rgba(190,190,255,.24);
+  border-radius: 16px;
+  box-shadow:
+    0 7px 0 rgba(3,5,14,.7),
+    0 12px 26px rgba(0,0,0,.32),
+    inset 0 1px 0 rgba(255,255,255,.13);
+}
+button:active {
+  transform: translateY(4px) scale(.985);
+  box-shadow: 0 2px 0 rgba(3,5,14,.7), inset 0 2px 7px rgba(0,0,0,.3);
+}
+button:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--aura-blue);
+  outline-offset: 3px;
+}
+input, select, textarea {
+  border: 1px solid var(--aura-edge);
+  border-radius: 14px;
+  background: linear-gradient(145deg, #191d32, #101321);
+  box-shadow: inset 3px 3px 8px rgba(0,0,0,.32),
+              inset -2px -2px 7px rgba(255,255,255,.025);
+}
+button:hover {
+  border-color: rgba(101,216,255,.48);
+  box-shadow: 0 8px 0 rgba(3,5,14,.7),
+              0 0 22px rgba(101,216,255,.12),
+              inset 0 1px 0 rgba(255,255,255,.17);
+}
+:is(.card, .panel, .room, .player, .chat, .container, .modal, .box) {
+  border: 1px solid var(--aura-edge);
+  box-shadow: 12px 14px 32px rgba(0,0,0,.28),
+              inset 1px 1px 0 rgba(255,255,255,.045);
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* AURA NEON WAVEFORM — premium purple/blue music visuals */
+canvas#viz{
+  display:block;
+  width:min(480px,100%);
+  height:88px;
+  margin:8px 0 10px;
+  overflow:visible;
+  filter:drop-shadow(0 0 8px rgba(103,120,255,.18));
+}
+.discwrap{
+  filter:drop-shadow(0 0 22px rgba(103,120,255,.12));
+  perspective:900px;
+}
+.disc{
+  transform-style:preserve-3d;
+  border:1px solid rgba(160,174,255,.25);
+  background:
+    radial-gradient(circle at 50% 50%,transparent 0 20%,rgba(119,139,255,.13) 20.5% 21%,transparent 21.5% 30%,rgba(82,107,255,.14) 30.5% 31%,transparent 31.5% 42%,rgba(166,120,255,.12) 42.5% 43%,transparent 43.5%),
+    repeating-radial-gradient(circle at 50% 50%,#11152b 0 2px,#191b39 2px 4px),
+    conic-gradient(from 0deg,#11152b,#24245a,#17172f,#28366c,#17172f,#322052,#11152b);
+  box-shadow:0 24px 60px rgba(0,0,0,.48),
+    0 0 0 1px rgba(132,149,255,.2),
+    0 0 35px rgba(92,105,255,.2),
+    inset 0 0 30px rgba(99,115,255,.12);
+}
+.disc.on{
+  animation:spin 18s linear infinite;
+  box-shadow:0 24px 60px rgba(0,0,0,.48),
+    0 0 0 1px rgba(132,149,255,.28),
+    0 0 48px rgba(92,105,255,.3),
+    inset 0 0 34px rgba(99,115,255,.16);
+}
+.disc i{
+  background:radial-gradient(circle at 30% 25%,#fff,#c9cfff 28%,#8494ff 58%,#6854d8 82%,#29204c);
+  box-shadow:inset 0 0 0 5px rgba(10,12,32,.24),
+    0 0 18px rgba(126,143,255,.45);
+}
+.disc i::after{
+  box-shadow:0 0 0 2px rgba(255,255,255,.15),0 0 12px rgba(85,210,255,.35);
+}
+.eq b{
+  background:linear-gradient(180deg,#c6a6ff,#7887ff 58%,#38d9ff);
+  box-shadow:0 0 8px rgba(109,130,255,.35);
+}
+.eq.go b{animation:eq .72s ease-in-out infinite alternate}
+.eq.go b:nth-child(2){animation-delay:.16s}
+.eq.go b:nth-child(3){animation-delay:.32s}
+@media(max-width:600px){
+  canvas#viz{height:72px;margin:5px 0 8px}
+  .discwrap{width:min(260px,62vw)}
+}
+@media(prefers-reduced-motion:reduce){
+  .disc.on,.eq.go b{animation:none!important}
+}
+
+
+/* AURA LUXURY GOLD — premium vinyl and gold audio visualizer */
+canvas#viz{
+  display:block;
+  width:min(460px,100%);
+  height:76px;
+  margin:8px 0;
+  filter:drop-shadow(0 0 7px rgba(228,201,142,.16));
+}
+.discwrap{
+  perspective:1000px;
+  filter:drop-shadow(0 18px 25px rgba(0,0,0,.42));
+}
+.disc{
+  border:1px solid rgba(228,201,142,.25);
+  background:
+    repeating-radial-gradient(circle at 50% 50%,#100e0b 0 2px,#242019 2px 4px),
+    conic-gradient(from 25deg,#17130d,#574326,#17130d,#302313,#17130d);
+  box-shadow:0 25px 55px rgba(0,0,0,.55),
+    0 0 0 1px rgba(228,201,142,.15),
+    0 0 28px rgba(228,201,142,.12),
+    inset 0 0 28px rgba(0,0,0,.65);
+}
+.disc.on{
+  animation:spin 18s linear infinite;
+  box-shadow:0 25px 55px rgba(0,0,0,.55),
+    0 0 0 1px rgba(228,201,142,.28),
+    0 0 38px rgba(228,201,142,.2),
+    inset 0 0 28px rgba(0,0,0,.65);
+}
+.disc i{
+  background:radial-gradient(circle at 32% 25%,#fff4cf,#e8c477 38%,#b4853d 72%,#60421c);
+  box-shadow:inset 0 0 0 5px rgba(0,0,0,.2),
+    0 0 18px rgba(228,201,142,.25);
+}
+.disc i::after{
+  box-shadow:0 0 0 2px rgba(255,240,190,.2);
+}
+.eq b{
+  background:linear-gradient(180deg,#fff0bc,#e2b85f 55%,#906328);
+  box-shadow:0 0 7px rgba(228,201,142,.25);
+}
+.eq.go b{animation:eq .75s ease-in-out infinite alternate}
+.eq.go b:nth-child(2){animation-delay:.17s}
+.eq.go b:nth-child(3){animation-delay:.34s}
+@media(max-width:600px){
+  canvas#viz{height:64px}
+  .discwrap{width:min(260px,62vw)}
+}
+
+
+/* AURA FLAT 2D MUSIC DESIGN */
+.discwrap{filter:none!important;perspective:none!important;transform:none!important}
+.disc{
+  border:1px solid #b89549!important;
+  background:repeating-radial-gradient(circle at center,#171717 0 3px,#29251c 4px 5px,#111 6px 9px)!important;
+  box-shadow:none!important;
+  filter:none!important;
+  transform:none!important;
+  animation:none!important;
+}
+.disc::before,.disc::after{box-shadow:none!important;filter:none!important}
+.disc i{background:#d6b15e!important;box-shadow:none!important}
+canvas#viz{filter:none!important;box-shadow:none!important}
+.eq b{box-shadow:none!important}
+button,.btn{box-shadow:none}
+
 </style>
 </head>
 <body>
@@ -596,9 +781,38 @@ function loop(){
   }else{$('#tcur').textContent='0:00';$('#tdur').textContent='0:00';$('#seek').style.setProperty('--p','0%')}
   cx.clearRect(0,0,cv.width,cv.height);
   if(an&&S&&S.playing&&!audio.paused){
-    an.getByteFrequencyData(fq);var n=32,w=cv.width/n,g=cx.createLinearGradient(0,0,0,cv.height);
-    g.addColorStop(0,'#f7e8c4');g.addColorStop(1,'rgba(228,201,142,.15)');cx.fillStyle=g;
-    for(var i=0;i<n;i++){var h=Math.max(4,fq[i+2]/255*cv.height);cx.fillRect(i*w+4,(cv.height-h)/2,w-8,h)}
+    an.getByteFrequencyData(fq);
+    var n=40,step=cv.width/n,gap=Math.max(2,step*.3);
+    var gold=cx.createLinearGradient(0,0,0,cv.height);
+    gold.addColorStop(0,'#fff2bd');
+    gold.addColorStop(.45,'#e7bd68');
+    gold.addColorStop(1,'#8f6425');
+    cx.save();
+    cx.fillStyle=gold;
+    cx.shadowColor='rgba(235,190,95,.8)';
+    cx.shadowBlur=13;
+    for(var i=0;i<n;i++){
+      var v=fq[Math.floor(i*64/n)+2]/255;
+      var h=Math.max(3,v*cv.height*.88);
+      var x=i*step+gap/2,y=(cv.height-h)/2;
+      cx.globalAlpha=.65+v*.35;
+      cx.fillRect(x,y,Math.max(1,step-gap),h);
+    }
+    cx.shadowBlur=0;
+    cx.globalAlpha=.75;
+    cx.beginPath();
+    for(var j=0;j<n;j++){
+      var xx=j*step+step/2;
+      var yy=cv.height/2-(fq[Math.floor(j*64/n)+2]/255)*cv.height*.25;
+      if(j===0)cx.moveTo(xx,yy);
+      else cx.lineTo(xx,yy);
+    }
+    cx.strokeStyle='#fff0bd';
+    cx.lineWidth=1.5;
+    cx.shadowColor='#e7bd68';
+    cx.shadowBlur=9;
+    cx.stroke();
+    cx.restore();
   }
   requestAnimationFrame(loop);
 }
